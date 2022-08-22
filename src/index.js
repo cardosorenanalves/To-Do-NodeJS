@@ -100,7 +100,16 @@ app.patch('/todos/:id/done', checksExistsUserAccount, (request, response) => {
 });
 
 app.delete('/todos/:id', checksExistsUserAccount, (request, response) => {
-  
+  const {username} = request;
+  const {id} = request.params;
+
+const todos = username.todos.filter((item) => 
+  item.id != id
+  )
+
+  username.todos = todos
+
+  return response.status(200).send()
 });
 
 module.exports = app;
